@@ -135,4 +135,25 @@ public class CustomerService {
             DBUtil.closeConnection();
         }
     }
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateCreditLimit(@PathParam("id") int id, Payload payload) {
+        System.out.println("updateCreditLimit invoked");
+        Customer customer = payload.getCustomer();
+        Connection con;
+        try {
+            con = DBUtil.getConnection();
+            String sql = "update Customer set creditLimit=" + customer.getCreditLimit() + " where id=" + id;
+            System.out.println(sql);
+            con.createStatement().execute(sql);
+            return "{\"status\":\"success\"}";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "{\"error\":\"Database error occurred. " + e.getMessage() + "\"}";
+        } finally {
+            DBUtil.closeConnection();
+        }
+    }
 }
