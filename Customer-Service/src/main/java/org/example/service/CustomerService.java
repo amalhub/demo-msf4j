@@ -137,7 +137,7 @@ public class CustomerService {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/updateCreditLimit/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String updateCreditLimit(@PathParam("id") int id, Payload payload) {
         System.out.println("updateCreditLimit invoked");
